@@ -22,7 +22,7 @@ export const getAll = async (req, res) => {
 };
 export const getDetail = async (req, res) => {
   try {
-    const user = await userService.getUserById(req.params.id);
+    const user = await userService.getUserById(req.params._id);
     if (!user)
       return error(res, "Không tìm thấy người dùng", 404, "USER_NOT_FOUND");
     return success(res, "Lấy chi tiết người dùng", user, 200);
@@ -32,7 +32,9 @@ export const getDetail = async (req, res) => {
 };
 export const update = async (req, res) => {
   try {
-    const updatedUser = await userService.updateUser(req.params.id, req.body);
+    const updatedUser = await userService.updateUser(req.params._id, req.body);
+    if (!updatedUser)
+      return error(res, "Không tìm thấy người dùng", 404, "USER_NOT_FOUND");
     return success(res, "Update người dùng", updatedUser, 200);
   } catch (err) {
     return error(res, "Lỗi hệ thống", 500, err.message);
@@ -40,7 +42,9 @@ export const update = async (req, res) => {
 };
 export const remove = async (req, res) => {
   try {
-    const deletedUser = await userService.deleteUser(req.params.id);
+    const deletedUser = await userService.deleteUser(req.params._id);
+    if (!deletedUser)
+      return error(res, "Không tìm thấy người dùng", 404, "USER_NOT_FOUND");
     return success(res, "Xóa người dùng", deletedUser, 200);
   } catch (err) {
     return error(res, "Lỗi hệ thống", 500, err.message);

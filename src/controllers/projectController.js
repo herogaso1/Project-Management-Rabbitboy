@@ -25,7 +25,7 @@ export const getAll = async (req, res) => {
 
 export const getDetail = async (req, res) => {
   try {
-    const project = await projectService.getProjectById(req.params.id);
+    const project = await projectService.getProjectById(req.params._id);
     if (!project)
       return error(res, "Không tìm thấy dự án", 404, "PROJECT_NOT_FOUND");
     return success(res, "Lấy chi tiết thành công", project, 200);
@@ -37,9 +37,11 @@ export const getDetail = async (req, res) => {
 export const update = async (req, res) => {
   try {
     const updatedProject = await projectService.updateProject(
-      req.params.id,
+      req.params._id,
       req.body
     );
+    if (!updatedProject)
+      return error(res, "Không tìm thấy dự án", 404, "PROJECT_NOT_FOUND");
     return success(res, "Update dự án", updatedProject, 200);
   } catch (err) {
     return error(res, "Lỗi hệ thống", 500, err.message);
@@ -47,7 +49,9 @@ export const update = async (req, res) => {
 };
 export const deleteProject = async (req, res) => {
   try {
-    const deletedProject = await projectService.deleteProject(req.params.id);
+    const deletedProject = await projectService.deleteProject(req.params._id);
+    if (!deletedProject)
+      return error(res, "Không tìm thấy dự án", 404, "PROJECT_NOT_FOUND");
     return success(res, "Xóa dự án", deletedProject, 200);
   } catch (err) {
     return error(res, "Lỗi hệ thống", 500, err.message);
