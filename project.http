@@ -1,0 +1,12 @@
+// POST /api/projects
+// Create a new project
+GET http://localhost:3001/api/projects/692ae6cd17533a9579963171
+Content-Type: application/json
+
+{
+  "name": "Project 1 ",
+  "description": "This is a project",
+  "startDate": "2023-01-01",
+  "endDate": "2023-01-31",
+   "owner": "692ae6cd17533a9579963111"
+}
